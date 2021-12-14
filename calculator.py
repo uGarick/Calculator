@@ -98,47 +98,33 @@ class Calculator(QWidget):
         line = self.input.text()
         self.input.setText(line + param)
 
+        if param == '.':
+            for i in range(len(line)):
+                if line[i] == '.':
+                    self.input.setText("Error! Incorrect number.")
+
     def _operation(self, op):
-        list = str(self.input.text())
-        list = list.split('.')
-        k = 0
-        for i in range(len(list)):
-            if list[i] == '':
-                k = k + 1
-        if k > 1:
-            self.input.setText("Error! Too many '.' ")
-        else:
-            self.num_1 = float(self.input.text())
-            self.op = op
-            self.input.setText("")
-        print(k, list)
+        self.num_1 = float(self.input.text())
+        self.op = op
+        self.input.setText("")
 
     def _result(self):
-        list = str(self.input.text())
-        list = list.split()
-        k = 0
-        for i in range(len(list)):
-            if list[i] == '':
-                k = k + 1
-        if k > 1:
-            self.input.setText("Error! Too many '.' ")
+        if self.input.text() == '':
+            self.input.setText("Error! Enter number.")
         else:
-            if self.input.text() == '':
-                self.input.setText("Error! Enter number.")
-            else:
-                self.num_2 = float(self.input.text())
+            self.num_2 = float(self.input.text())
 
-                if self.op == "+":
-                    self.input.setText(str(self.num_1 + self.num_2))
-                if self.op == '-':
-                    self.input.setText(str(self.num_1 - self.num_2))
-                if self.op == '*':
-                    self.input.setText(str(self.num_1 * self.num_2))
-                if self.op == '/':
-                    if self.num_2 == 0:
-                        self.input.setText('Error! Division by zero')
-                    else:
-                        self.input.setText(str(self.num_1 / self.num_2))
+            if self.op == "+":
+                self.input.setText(str(self.num_1 + self.num_2))
+            if self.op == '-':
+                self.input.setText(str(self.num_1 - self.num_2))
+            if self.op == '*':
+                self.input.setText(str(self.num_1 * self.num_2))
+            if self.op == '/':
+                if self.num_2 == 0:
+                    self.input.setText('Error! Division by zero')
+                else:
+                    self.input.setText(str(self.num_1 / self.num_2))
 
     def _clear(self):
         self.input.setText(str())
